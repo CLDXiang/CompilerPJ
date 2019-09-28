@@ -127,7 +127,7 @@ int main(int argc, char** argv) {
             col += token.length();
         }
         
-        if (n == RETURN) {
+        if (n == NEWLINE) {
             row++;
             col = 1;
         }

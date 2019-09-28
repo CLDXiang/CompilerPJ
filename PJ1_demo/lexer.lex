@@ -34,7 +34,7 @@ BC          
 <comment><<EOF>>                     err_code = 2; BEGIN(INITIAL); return ERR;
 {RK}        return RK;
 <INITIAL>{QUOTE}    BEGIN(string); text = yytext; extra_n = 0;
-<string>[^\"\n]*                   text += yytext; line_leng += yyleng; /* eat anything that's not a '*' */
+<string>[^\"\n]*                   text += yytext; line_leng += yyleng; /* eat anything that's not a '"' */
 <string>\n                         text += yytext; extra_n++; line_leng = 0;
 <string>{QUOTE}                    text += yytext; line_leng += yyleng; BEGIN(INITIAL); return STRING;
 <string><<EOF>>                    err_code = 1; BEGIN(INITIAL); return ERR;
