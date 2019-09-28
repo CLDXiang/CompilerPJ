@@ -120,9 +120,9 @@ int main(int argc, char** argv) {
             tokens_counter++;
         }
 
-        if (n == COMMENT || n == STRING) {
+        if (extra_n != 0) {
             row += extra_n;
-            col += line_leng;
+            col = line_leng + 1;
         } else {
             col += token.length();
         }
