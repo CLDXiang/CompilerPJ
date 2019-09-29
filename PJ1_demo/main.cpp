@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
             case INTEGER:
                 // overflow? (see file test20.pcat)
                 type = "integer";
-                if (strlen(yytext)>10 || (strlen(yytext)==10 && yytext > "4294967295")) {
+                if (strlen(yytext)>10 || (strlen(yytext)==10 && strncmp(yytext, "4294967295", 10) > 0)) {
                     error = "/Error: An out of range integer!";
                     type = "error";
                 }
@@ -82,8 +82,8 @@ int main(int argc, char** argv) {
                 break;
             case STRING:
                 type = "string";
-                if (text.find('\n') != std::string::npos || text.find('\t') != std::string::npos) {
-                    error = "/Error: An invalid string with tab or newline in it!";
+                if (text.find('\t') != std::string::npos) {
+                    error = "/Error: An invalid string with tab in it!";
                     type = "error";
                 }
                 else if (text.length() > 257) {
@@ -122,7 +122,9 @@ int main(int argc, char** argv) {
 
         if (extra_n != 0) {
             row += extra_n;
+            extra_n = 0;
             col = line_leng + 1;
+            line_leng = 0;
         } else {
             col += token.length();
         }
