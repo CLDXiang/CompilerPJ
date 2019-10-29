@@ -45,6 +45,7 @@ int main(int argc, char** argv) {
                 if (strlen(yytext)>10 || (strlen(yytext)==10 && strncmp(yytext, "4294967295", 10) > 0)) {
                     error = "/Error: An out of range integer!";
                     type = "error";
+                    errors_counter++;
                 }
                 token = yytext;
                 break;
@@ -69,6 +70,7 @@ int main(int argc, char** argv) {
                 if (strlen(yytext) > 255) {
                     error = "/Error: An overly long identifier!";
                     type = "error";
+                    errors_counter++;
                 }
                 token = yytext;
                 break;
@@ -85,10 +87,12 @@ int main(int argc, char** argv) {
                 if (text.find('\t') != std::string::npos) {
                     error = "/Error: An invalid string with tab in it!";
                     type = "error";
+                    errors_counter++;
                 }
                 else if (text.length() > 257) {
                     error = "/Error: An overly long string!";
                     type = "error";
+                    errors_counter++;
                 }
                 token = text;
                 break;
@@ -97,6 +101,7 @@ int main(int argc, char** argv) {
                 break;
             case ERR:
                 type = "error";
+                errors_counter++;
                 switch(err_code) {
                     case 0:
                         error = "Error: A bad character (bell)!";
@@ -112,6 +117,7 @@ int main(int argc, char** argv) {
             default:
                 type = "error";
                 token = yytext;
+                errors_counter++;
         }
         
         // print (rows and cols?)
@@ -137,6 +143,7 @@ int main(int argc, char** argv) {
     
     // count num of tokens and errors?
     cout<<"Num of tokens: "<<tokens_counter<<endl; 
+    cout<<"Num of errors: "<<errors_counter<<endl;
     
     return 0;
 }
