@@ -1,0 +1,6 @@
+.vscode
+.DS_Store
+report
+*/demo
+*/lexer.c
+*/lexer.o
