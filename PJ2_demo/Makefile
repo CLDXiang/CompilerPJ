@@ -1,4 +1,4 @@
-GCC = @g++
+GCC = @g++ -std=c++11
 LEX = @flex
 YACC = @bison
 

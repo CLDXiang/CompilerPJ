@@ -26,7 +26,7 @@ void yyerror(const string msg) {
 %token LARRAY RARRAY // [< >]
 
 // reserverd keywords
-%token AND ARRAY BEGIN BY DIV DO ELSE ELSIF END EXIT FOR IF IN IS
+%token AND ARRAY RK_BEGIN BY DIV DO ELSE ELSIF END EXIT FOR IF IN IS
 %token LOOP MOD NOT OF OR OUT PROCEDURE PROGRAM READ RECORD RETURN THEN TO TYPE
 %token VAR WHILE WRITE
 
@@ -47,7 +47,7 @@ void yyerror(const string msg) {
 %type comma-l-value-list
 %type elseif-list
 %type comma-write-expr-list comma-expression-list
-%type semicolon-id-assign-exprssion-list
+%type semicolon-id-assign-expression-list
 
 %%
 program: 
@@ -55,7 +55,7 @@ program:
   | PROGRAM IS body SEMICOLON { $$ = create_node("program"); $$->add_childs({$1, $2, $3, $4}); }
   ;
 body:
-  declaration-list BEGIN statement-list END { $$ = create_node("body"); $$->add_childs({$1, $2, $3, $4}); }
+  declaration-list RK_BEGIN statement-list END { $$ = create_node("body"); $$->add_childs({$1, $2, $3, $4}); }
   ;
 declaration:
   VAR var-decl-list { $$ = create_node("declaration"); $$->add_childs({$1, $2}); }
@@ -131,7 +131,7 @@ actual-params:
   | LPAREN RPAREN { $$ = create_node("actual-params"); $$->add_childs({$1, $2}); }
   ;
 comp-values:
-  LBRACE ID ASSIGN expression semicolon-id-assign-exprssion-list RBRACE { $$ = create_node("comp-values"); $$->add_childs({$1, $2, $3, $4, $5, $6}); }
+  LBRACE ID ASSIGN expression semicolon-id-assign-expression-list RBRACE { $$ = create_node("comp-values"); $$->add_childs({$1, $2, $3, $4, $5, $6}); }
   ;
 array-values:
   LARRAY array-value comma-array-value-list RARRAY { $$ = create_node("array-values"); $$->add_childs({$1, $2, $3, $4}); }
@@ -214,9 +214,9 @@ comma-expression-list:
   %empty { $$ = nullptr; }
   | COMMA expression comma-expression-list { $$ = create_node("comma-expression-list", true); $$->add_childs({$1, $2, $3}); }
   ;
-semicolon-id-assign-exprssion-list:
+semicolon-id-assign-expression-list:
   %empty { $$ = nullptr; }
-  | SEMICOLON ID ASSIGN expression semicolon-id-assign-expression-list { $$ = create_node("semicolon-id-assign-exprssion-list", true); $$->add_childs({$1, $2, $3, $4, $5}); }
+  | SEMICOLON ID ASSIGN expression semicolon-id-assign-expression-list { $$ = create_node("semicolon-id-assign-expression-list", true); $$->add_childs({$1, $2, $3, $4, $5}); }
   ;
 comma-array-value-list:
   %empty { $$ = nullptr; }

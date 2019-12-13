@@ -4,7 +4,7 @@
 using namespace std;
 
 
-Node* create_node(string name, bool isList = false, string info = "", double value = .0){
+Node* create_node(string name, bool isList, string info, double value){
     return new Node(name, isList, info, value);
 }
 

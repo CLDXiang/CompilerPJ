@@ -23,6 +23,6 @@ struct Node {
     void show();
 };
 
-Node* create_node(string name, bool isList, string info , double value);
+Node* create_node(string name, bool isList = false, string info = "", double value = .0);
 
 #endif

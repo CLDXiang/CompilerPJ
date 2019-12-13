@@ -30,3 +30,11 @@ root->add_childs({node1, node6});
 - 注意开始条件改下名！！！会被宏定义为整数！！
 
 - 区分/和DIV
+
+- 暂时不知道需不需要做BOOLEAN: TRUE/FALSE 5.2
+
+- flex文件必须能返回所有的token
+
+- 词法分析错误暂时强行返回ERR中断程序，后面看看能不能更优雅
+
+- BEGIN被占用了，改成RK_BEGIN
