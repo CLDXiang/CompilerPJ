@@ -1,11 +1,11 @@
 #include <iostream>
 #include <stdio.h>
-// #include "tree.h"
+#include "tree.h"
 using namespace std;
 
 int yyparse();
 extern "C" FILE* yyin;
-// extern node_t* root;
+extern Node* root;
 
 int main(int argc, char** argv) {
     if (argc > 1) {
@@ -21,6 +21,6 @@ int main(int argc, char** argv) {
     }
     
     yyparse();
-    // root->show();
+    root->show();
     return 0;
 }

@@ -52,7 +52,7 @@ void yyerror(const string msg) {
 %%
 program: 
   %empty { $$ = nullptr; }
-  | PROGRAM IS body SEMICOLON { $$ = create_node("program"); $$->add_childs({$1, $2, $3, $4}); }
+  | PROGRAM IS body SEMICOLON { $$ = create_node("program"); $$->add_childs({$1, $2, $3, $4}); root = $$; }
   ;
 body:
   declaration-list RK_BEGIN statement-list END { $$ = create_node("body"); $$->add_childs({$1, $2, $3, $4}); }

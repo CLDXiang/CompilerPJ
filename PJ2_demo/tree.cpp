@@ -4,16 +4,22 @@
 using namespace std;
 
 
-Node* create_node(string name, bool isList, string info, double value){
+Node* create_node(string name, bool isList, string info, double value) {
     return new Node(name, isList, info, value);
+}
+
+void hide_node(Node* node) {
+    node->display = false;
 }
 
 void Node::add_childs(initializer_list<Node*> new_childs) {
     for (auto child: new_childs) {
         if (child == nullptr)
             continue; // 跳过空的子节点
-        if (child->isList) {
-            // 子节点是列表节点，将子节点的孩子让渡给当前节点
+        if (child->isList && this->isList && child->name == this->name) {
+            // 当前节点和子节点是同类列表节点，将子节点的孩子让渡给当前节点
+        // if (child->isList) {
+        //     // 子节点是列表节点，将子节点的孩子让渡给当前节点
             for (auto grandson: child->childs) {
                 childs.push_back(grandson);
                 grandson->parent = this;
@@ -27,13 +33,26 @@ void Node::add_childs(initializer_list<Node*> new_childs) {
     }
 }
 
+void set_location(Node* node, int first_line, int first_col, int last_line, int last_col) {
+    node->first_line = first_line;
+    node->first_col = first_col;
+    node->last_line = last_line;
+    node->last_col = last_col;
+}
+
+
 void Node::show(){ 
-    cout << "{ name: '" << name << "', line: '" << line <<"', col: '"<<col<<"', info: '"<<info<<"', ";
+    // info不为空才会真的显示，这个交给前端
+    cout << "{ name: '" << name << "', line: '" << first_line << "', col: '" << first_col << "', info: '" << info << "', ";
     if (childs.size() != 0) {
         cout << "\nchildren: [" << endl;
         for (auto child: childs) {
-            child->show();
+            if (child->display) {
+                child->show();
+                cout << ","; 
             cout << ","; 
+                cout << ","; 
+            }
         }
         cout << " ]";
     }
