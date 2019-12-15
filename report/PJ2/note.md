@@ -53,3 +53,8 @@ root->add_childs({node1, node6});
   - 将词法报错移过来
   - 位置
   - 错误处理
+
+- 位置：
+  - 在lex中计数line和col，然后返回时用yylloc赋值
+  - 在bison中，规约时直接用@
+  - 在bison中用%locations启用yylloc
