@@ -9,7 +9,7 @@ using namespace std;
 
 Node* root;
 void yyerror(const string msg) {
-	cout << "Error at line: " << yylloc.first_line << ", column: " << yylloc.first_column << endl;
+	cout << "[Error] at line: " << yylloc.first_line << ", column: " << yylloc.first_column << endl;
 	cerr << msg << endl;
 }
 %}

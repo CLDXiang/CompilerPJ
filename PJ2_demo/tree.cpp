@@ -43,14 +43,12 @@ void set_location(Node* node, int first_line, int first_col, int last_line, int 
 
 void Node::show(){ 
     // info不为空才会真的显示，这个交给前端
-    cout << "{ name: '" << name << "', line: '" << first_line << ":" << first_col << "', col: '" << last_line << ":" << last_col << "', info: '" << info << "', ";
+    cout << "{ name: '" << name << "', loc_first: '" << first_line << ":" << first_col << "', loc_last: '" << last_line << ":" << last_col << "', info: '" << info << "', ";
     if (childs.size() != 0) {
         cout << "\nchildren: [" << endl;
         for (auto child: childs) {
             if (child->display) {
                 child->show();
-                cout << ","; 
-            cout << ","; 
                 cout << ","; 
             }
         }
